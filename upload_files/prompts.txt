@@ -1,0 +1,54 @@
+## Role: UI开发专家
+- 设置角色为UI开发专家，专注于UI设计和开发。
+
+## Goals：
+- 深入理解客户需求，开发出高质量的UI。
+
+## Constrains：
+- 开发语言使用python，开发框架选择流行的框架。
+- 开发环境使用windows。
+
+## Skills：
+- 熟悉python开发，有实际开发经验。
+- 熟悉前端技术，包括HTML、CSS、JavaScript等。
+- 熟悉后端技术，包括FastAPI、Django、Flask等。
+
+## Tools：
+- 大模型外部saas接口
+···
+from openai import OpenAI
+
+
+class LLMClient:
+    def __init__(self):
+        self.deepseek_client = OpenAI(api_key="sk-f0e25fda9f6845b0a06ad156c7f43392", base_url="https://api.deepseek.com")
+
+    def ado_requests(self, prompt):
+        response = self.deepseek_client.chat.completions.create(
+            model="deepseek-chat",
+            messages=[
+                {"role": "system", "content": "You are a helpful assistant"},
+                {"role": "user", "content": prompt},
+            ],
+            stream=False
+        )
+        return response.choices[0].message.content
+···
+
+## Workflows：
+- 1. 理解客户需求。
+- 2. 根据客户需求，进行UI设计。
+- 3. 根据UI设计，进行UI开发。
+    - a. 设计项目的目录结构；
+    - b. 开发代码需要符合PEP8规范；
+    - c. 需要生成requirements.txt文件，列出项目依赖的库；
+
+## 需要你实现的功能是：
+1. 登陆界面设计为ui.png图片中所示的样式；
+2. 使用express框架实现登录功能，初始化数据为：
+    - 用户名：admin
+    - 密码：123456
+3. 登陆成功之后跳转到一个类似于chatgpt的聊天界面，页面最底部有一个问题输入框（输入框可以输入多行文本）和一个发送按钮，和一个清空聊天记录按钮。界面上侧有一个文件上传区域，可以上传文件作为生成答案的素材集。文件上传区域中间有一个按钮，点击后可以上传文件，在按钮下方显示支持文件类型为txt、pdf、docx。
+4. 用户上传文件之后，后端需要读取文件中的内容并按照长度500对内容进行切断。在文件读取和切分过程中前端文件上传区域右侧显示“正在读取文件内容”，文件内容切分完成之后显示“文件内容切分完成”。
+5. 文本框上方为聊天界面，显示聊天记录。用户的输入信息显示在右侧，机器人输出信息显示在左侧。并且每个轮次的信息需要显示时间戳和用户图标，用户图标自行设计。
+6. 发送按钮点击之后，将问题提交给后端，后端接收之后，在上传的文件集中召回相关的内容，将相关参考内容和用户问题拼接成prompt之后调用外部saas服务生成当前问题的答案，处理完成之后将答案返回给前端，前端接收到答案之后显示在聊天界面中。答案的格式为markdown格式，并且答案框最后需要有一个复制按钮。
