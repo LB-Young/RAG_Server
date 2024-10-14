@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>聊天</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+    <div class="main-container">
+        <div class="file-upload-container">
+            <input type="file" id="file-input" accept=".txt,.pdf,.docx" multiple style="display: none;">
+            <button onclick="document.getElementById('file-input').click()">上传文件</button>
+            <p>支持文件类型: txt, pdf, docx</p>
+            <p id="file-status"></p>
+            <ul id="uploaded-files"></ul>
+        </div>
+        <div class="chat-container">
+            <button id="clear-chat" onclick="clearChat()">清空聊天记录</button>
+            <div class="chat-history-container">
+                <div id="chat-history"></div>
+            </div>
+            <div class="input-area">
+                <textarea id="user-input" placeholder="输入您的问题..."></textarea>
+                <button id="send-button" onclick="sendMessage()">发送</button>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
